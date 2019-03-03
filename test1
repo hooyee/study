@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="cvs"></canvas>
+    <script>
+        var canvas=document.getElementById("cvs");
+        var ctx=cvs.getContext("2d"); 
+        cvs.width="600";
+        cvs.height="600";
+        cvs.style.background="black";
+        var time=0;
+        function draw()
+        {
+            //清除画布内容
+            ctx.clearRect(0,0,600,600);
+          
+            //地球轨道
+            ctx.beginPath();
+            ctx.strokeStyle="white";
+            ctx.arc(300,300,180,0,360,false);
+            ctx.closePath();
+            ctx.stroke();
+
+            //太阳
+            ctx.beginPath();
+            ctx.arc(300,300,40,0,360,false);
+            ctx.fillStyle="orange";
+            ctx.closePath();
+            ctx.fill();
+ 
+            ctx.beginPath();
+            ctx.arc(300,300,15,0,360,false);
+            ctx.fillStyle="red";
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.save();
+            //地球
+            ctx.translate(300,300);
+            //移动
+            ctx.rotate(time*365/360*Math.PI/180);
+            ctx.beginPath();
+            ctx.arc(180,0,10,0,360,false);
+            ctx.fillStyle="blue";
+            ctx.closePath();
+            ctx.fill();
+
+            //月球轨道
+            ctx.translate(180,0);
+            ctx.beginPath();
+            ctx.arc(0,0,30,0,360,false);
+            ctx.closePath();
+            ctx.strokeStyle="white";
+            ctx.stroke();
+
+            ctx.save();
+            //月球
+            ctx.rotate(time*365*Math.PI/180);
+            ctx.beginPath();
+            ctx.arc(30,0,5,0,360,false);
+            ctx.closePath();
+            ctx.fillStyle="yellow";
+            ctx.fill();
+            
+            ctx.restore();
+            ctx.restore();
+
+            ctx.translate(0,0);
+            time=time+1;
+        }
+        setInterval(draw,100);
+    </Script>
+</body>
+</html>
