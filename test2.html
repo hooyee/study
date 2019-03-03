@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>画布2</title>
+</head>
+<body>
+    <canvas id="cvs" width="800" height="800">您的浏览器不支持！</canvas>
+    <script >
+        var canvas = document.getElementById("cvs");
+        cvs.style.border = "1px solid #000";
+        var context = cvs.getContext("2d");
+        var img = new Image();
+        img.src = "Images/test2.png";
+        
+       
+        img.onload = function() {
+            var i = 0;
+            setInterval( 
+                function() {
+                // 绘制新的图像时，需要先清除画布
+                context.clearRect( 0, 0, cvs.width, cvs.height );
+ 
+                // 绘图每一帧
+                /*
+                * 裁剪的x轴，用来控制每一排不同的帧，
+                * 裁剪的y轴，用来控制当前行走的方向(也就是绘制那一排)。
+                * */
+                context.drawImage( img,
+                    img.width / 4 * i, 0, img.width / 4, img.height / 4,
+                    0, 0, 200, 200 );
+                
+                context.drawImage( img,
+                    img.width / 4 * i, img.height / 4, img.width / 4, img.height / 4,
+                    200, 0, 200, 200 );
+                
+                context.drawImage( img,
+                    img.width / 4 * i, img.height / 4 * 3, img.width / 4, img.height / 4,
+                    200, 200, 200, 200 );
+
+                context.drawImage( img,
+                    img.width / 4 * i, img.height / 4 * 2, img.width / 4, img.height / 4,
+                    0, 200, 200, 200 );
+
+                
+                // i的最大值为3
+                if ( ++i >= 4 ) {
+                    i = 0;
+                }
+ 
+            }, 200);
+        };
+    </script>
+</body>
+</html>
